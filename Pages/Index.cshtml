@@ -71,6 +71,14 @@ connection.start().catch(err => console.error(err.toString()));
 connection.on('Send', (nick, message) => {
     appendLine(nick, message);
 });
+
+connection.on('Join', (nick, message) => {
+    appendLine(nick, "has joined.");
+});
+
+connection.on('Leave', (nick, message) => {
+    appendLine(nick, "has left.");
+});
  
 document.getElementById('frm-send-message').addEventListener('submit', event => {
     let message = $('#message').val();
