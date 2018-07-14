@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR;
+
 namespace dotnetcorechat
 {
-
-public class ChatHub : Hub
+    public class ChatHub : Hub
     {      
-        public async Task Send(string message)
+        public async Task Send(string nick, string message)
         {
             await Clients.All.SendAsync("Send", nick, message);
         }
