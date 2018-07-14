@@ -8,6 +8,9 @@ IF NOT EXISTS (
 CREATE DATABASE [ChatDB]
 GO
 
+USE [ChatDB]
+GO
+
 -- Create a new table called 'Users' in schema 'dbo'
 -- Drop the table if it already exists
 IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL
@@ -20,6 +23,6 @@ CREATE TABLE dbo.Users
     Username [NVARCHAR](50) NOT NULL,
     Password [NVARCHAR](250) NOT NULL,
     Salt [NVARCHAR](250) NOT NULL,
-    ImageUrl [NVARCHAR](250) NOT NULL
+    ImageUrl [NVARCHAR](250) NULL
 );
 GO
