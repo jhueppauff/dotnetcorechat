@@ -23,6 +23,25 @@ CREATE TABLE dbo.Users
     Username [NVARCHAR](50) NOT NULL,
     Password [NVARCHAR](250) NOT NULL,
     Salt [NVARCHAR](250) NOT NULL,
-    ImageUrl [NVARCHAR](250) NULL
+    ImageUrl [NVARCHAR](250) NULL,
+    Created [Datetime] NOT NULL,
+    LastLoggedIn [Datetime] NOT NULL
+);
+GO
+
+-- Create a new table called 'Rooms' in schema 'dbo'
+-- Drop the table if it already exists
+IF OBJECT_ID('dbo.Rooms', 'U') IS NOT NULL
+DROP TABLE dbo.Rooms
+GO
+-- Create the table in the specified schema
+CREATE TABLE dbo.Rooms
+(
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, -- primary key column
+    Name [NVARCHAR](50) NOT NULL,
+    Password [NVARCHAR](250) NOT NULL,
+    Salt [NVARCHAR](250) NOT NULL,
+    OwnerId UNIQUEIDENTIFIER NOT NULL
+    -- specify more columns here
 );
 GO
