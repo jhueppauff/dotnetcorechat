@@ -41,7 +41,7 @@ CREATE TABLE dbo.Rooms
     Name [NVARCHAR](50) NOT NULL,
     Password [NVARCHAR](250) NOT NULL,
     Salt [NVARCHAR](250) NOT NULL,
-    OwnerId UNIQUEIDENTIFIER NOT NULL
+    FOREIGN Key (OwnerId) REFERENCES dbo.Users(Id)
     -- specify more columns here
 );
 GO
