@@ -35,9 +35,7 @@ namespace dotnetcorechat
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>();
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
