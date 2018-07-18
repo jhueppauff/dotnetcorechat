@@ -86,7 +86,7 @@ document.getElementById('frm-send-message').addEventListener('submit', event => 
  
     $('#message').val('');
  
-    connection.invoke('Send', nick, message);
+    connection.invoke('Send', message);
     event.preventDefault();
 });
  
