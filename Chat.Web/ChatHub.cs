@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace dotnetcorechat
 {
-    [Authorize]
     public class ChatHub : Hub
     {      
         public async Task Send(string message)

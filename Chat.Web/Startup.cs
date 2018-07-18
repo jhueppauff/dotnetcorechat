@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNet.SignalR;
 
 namespace dotnetcorechat
 {
@@ -39,6 +40,7 @@ namespace dotnetcorechat
 
             services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -67,10 +69,14 @@ namespace dotnetcorechat
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
+            GlobalHost.HubPipeline.RequireAuthentication();
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
