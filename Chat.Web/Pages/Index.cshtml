@@ -5,13 +5,8 @@
 }
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <br>
-<div id="entrance">
-    <label for="nick">Enter your nickname:</label>
-    <input type="text" id="nick" />
-    <button onclick="continueToChat()">Continue</button>
-</div>
 
-<div class="container" id="chat-controler" style="display:none">
+<div class="container" id="chat-controler">
     <form id="frm-send-message" action="#">
                 <div class="send-wrap ">
                     <textarea class="form-control send-message" id="message" rows="2" placeholder="Write a reply..."></textarea>
@@ -22,7 +17,7 @@
             </form>
 </div>
 <br/>
-<div class="container" id="chat" style="margin: auto; display:none;">
+<div class="container" id="chat" style="margin: auto;">
     <h3 id="spn-nick" style="display:none;"></h3>
     <div class="row">
         <div class="conversation-wrap col-lg-3">
@@ -53,7 +48,7 @@
         <div class="media-body">
             <small class="Time pull-right time"><i class="fa fa-clock-o"></i></small>
             <h5 class="Owner media-heading"></h5>
-            <small class="Message col-lg-10"></small>
+            <small style="" class="Message col-lg-10"></small>
         </div>
     </div>
 </div>
@@ -73,11 +68,11 @@ connection.on('Send', (nick, message) => {
 });
 
 connection.on('Join', (nick, message) => {
-    appendLine(nick, "has joined.");
+    appendLine(nick, "has joined.", "color: green");
 });
 
 connection.on('Leave', (nick, message) => {
-    appendLine(nick, "has left.");
+    appendLine(nick, "has left.", "color: red");
 });
  
 document.getElementById('frm-send-message').addEventListener('submit', event => {
@@ -101,7 +96,13 @@ function appendLine(nick, message, color) {
     newDiv.attr("id",id)
     .find(".Owner").html(nick.toString());
 
+    if(color == null)
+    {
+        color = "color: black";
+    }
+
     newDiv.find(".Message").html(message.toString());
+    newDiv.find(".Message").css(color);
 
     newDiv.find(".Time").html('<i class="fa fa-clock-o"></i> ' + h + ":" + m + ":" + s);
 
@@ -109,14 +110,6 @@ function appendLine(nick, message, color) {
 
     $('#chatbody').prepend(newDiv);
 };
- 
-function continueToChat() {
-    $('#spn-nick').text($('#nick').val());
-    $('#entrance').hide();
-    $("#chat-controler").show();
-    $('#chat').show();
-}
-
 function checkTime(i) {
         return (i < 10) ? "0" + i : i;
     }
