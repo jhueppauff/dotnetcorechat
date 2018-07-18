@@ -65,6 +65,7 @@ namespace dotnetcorechat
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
@@ -76,9 +77,14 @@ namespace dotnetcorechat
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
-
             app.UseMvc();
+
+            app.UseCors(builder => {
+                builder.AllowAnyMethod()
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            });
         }
     }
 }
