@@ -1,0 +1,116 @@
+@page
+@model ChatModel
+@{
+    ViewData["Title"] = "Chat Room";
+}
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<br>
+
+<div class="container" id="chat-controler">
+    <form id="frm-send-message" action="#">
+                <div class="send-wrap ">
+                    <textarea class="form-control send-message" id="message" rows="2" placeholder="Write a reply..."></textarea>
+                </div>
+                <div class="btn-panel">
+                    <input type="submit" value="Send Message" class="send" class=" col-lg-4 text-right btn send-message-btn pull-right" role="button">
+                </div>
+            </form>
+</div>
+<br/>
+<div class="container" id="chat" style="margin: auto;">
+    <h3 id="spn-nick" style="display:none;"></h3>
+    <div class="row">
+        <div class="conversation-wrap col-lg-3">
+            <div class="media conversation">
+                <a class="pull-left" href="#">
+                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 50px; height: 50px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+                </a>
+                <div class="media-body">
+                    <h5 class="media-heading">Root</h5>
+                </div>
+            </div>       
+        </div>
+        <div class="message-wrap col-lg-8 chatBody" id="chatbody">
+            
+        </div>
+            <br/>
+
+    </div>
+</div>
+
+
+
+<div class="msg-wrap" style="display:none;" id="template">
+    <div class="media msg">
+        <a class="pull-left">
+            <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
+        </a>
+        <div class="media-body">
+            <small class="Time pull-right time"><i class="fa fa-clock-o"></i></small>
+            <h5 class="Owner media-heading"></h5>
+            <small style="" class="Message col-lg-10"></small>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="lib/signalr/signalr.min.js"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chathub")
+        .build();
+ 
+connection.start().catch(err => console.error(err.toString()));
+ 
+connection.on('Send', (nick, message) => {
+    appendLine(nick, message);
+});
+
+connection.on('Join', (nick, message) => {
+    appendLine(nick, "has joined.", "color: green");
+});
+
+connection.on('Leave', (nick, message) => {
+    appendLine(nick, "has left.", "color: red");
+});
+ 
+document.getElementById('frm-send-message').addEventListener('submit', event => {
+    let message = $('#message').val();
+    let nick = $('#spn-nick').text();
+ 
+    $('#message').val('');
+ 
+    connection.invoke('Send', message);
+    event.preventDefault();
+});
+ 
+function appendLine(nick, message, color) {
+    var newDiv = $("#template").clone();
+    var id = "chat-" + nick + "-" + Date.now();
+    var today = new Date(),
+            h = checkTime(today.getHours()),
+            m = checkTime(today.getMinutes()),
+            s = checkTime(today.getSeconds());
+
+    newDiv.attr("id",id)
+    .find(".Owner").html(nick.toString());
+
+    if(color == null)
+    {
+        color = "color: black";
+    }
+
+    newDiv.find(".Message").html(message.toString());
+    newDiv.find(".Message").css(color);
+
+    newDiv.find(".Time").html('<i class="fa fa-clock-o"></i> ' + h + ":" + m + ":" + s);
+
+    newDiv.show();
+
+    $('#chatbody').prepend(newDiv);
+};
+function checkTime(i) {
+        return (i < 10) ? "0" + i : i;
+    }
+</script>
