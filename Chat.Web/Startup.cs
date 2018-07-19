@@ -42,7 +42,14 @@ namespace dotnetcorechat
                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+            });
 
             services.AddSignalR();        
 
@@ -85,6 +92,6 @@ namespace dotnetcorechat
                     .AllowAnyHeader()
                     .AllowCredentials();
             });
-        }
     }
+}
 }
