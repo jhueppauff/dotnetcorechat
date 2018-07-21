@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace dotnetcorechat
 {
@@ -87,7 +87,6 @@ namespace dotnetcorechat
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
-            GlobalHost.HubPipeline.RequireAuthentication();
 
 
             app.UseHttpsRedirection();
