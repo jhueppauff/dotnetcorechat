@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using dotnetcorechat.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using dotnetcorechat.Models;
 
 namespace dotnetcorechat.Areas.Identity.Pages.Account.Manage
 {
@@ -40,8 +40,10 @@ namespace dotnetcorechat.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            // [DisplayName]
-            // public string DisplayName { get; set; }
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "DisplayName")]
+            public string DisplayName { get; set; }
 
             [Required]
             [EmailAddress]
@@ -68,6 +70,7 @@ namespace dotnetcorechat.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                DisplayName = user.DisplayName,
                 Email = email,
                 PhoneNumber = phoneNumber
             };
@@ -88,6 +91,11 @@ namespace dotnetcorechat.Areas.Identity.Pages.Account.Manage
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (Input.DisplayName != user.DisplayName)
+            {
+                user.DisplayName = Input.DisplayName;
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -111,6 +119,8 @@ namespace dotnetcorechat.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

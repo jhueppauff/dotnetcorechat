@@ -21,16 +21,10 @@ namespace dotnetcorechat
 
             if (!string.IsNullOrWhiteSpace(user.DisplayName))
             {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-            new Claim(ClaimTypes.GivenName, user.DisplayName)
-        });
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.DisplayName))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-            new Claim(ClaimTypes.Surname, user.DisplayName),
-        });
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] 
+                    {
+                    new Claim(ClaimTypes.GivenName, user.DisplayName)
+                    });
             }
 
             return principal;

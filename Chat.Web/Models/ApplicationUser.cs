@@ -6,6 +6,7 @@ namespace dotnetcorechat.Models
 {
     public class ApplicationUser: IdentityUser
   {
+    [PersonalData]
      public string DisplayName { get; set; }
   }
 }
