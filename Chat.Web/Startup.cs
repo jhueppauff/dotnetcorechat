@@ -41,7 +41,7 @@ namespace dotnetcorechat
             services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
-            services.AddDefaultIdentity<ApplicationUser>(options => {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 7;
                 options.Password.RequireLowercase = true;
