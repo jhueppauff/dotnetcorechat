@@ -1,3 +1,14 @@
+/*
+ * -----------------------------------------------------------------------
+ *  <copyright file="ChatHub.cs" company=""
+ *  Copyright 2018 julian
+ *  MIT Licence
+ *  For licence details visit https://github.com/jhueppauff/dotnetcorechat/blob/master/LICENSE
+ *  </copyright>
+ * -----------------------------------------------------------------------
+ */
+
+
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.SignalR;

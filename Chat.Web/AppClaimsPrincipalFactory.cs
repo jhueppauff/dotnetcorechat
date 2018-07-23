@@ -1,3 +1,13 @@
+/*
+ * -----------------------------------------------------------------------
+ *  <copyright file="AppClaimsPrincipalFactory.cs" company=""
+ *  Copyright 2018 julian
+ *  MIT Licence
+ *  For licence details visit https://github.com/jhueppauff/dotnetcorechat/blob/master/LICENSE
+ *  </copyright>
+ * -----------------------------------------------------------------------
+ */
+
 using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnetcorechat.Models;
