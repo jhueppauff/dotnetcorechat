@@ -1,3 +1,13 @@
+/*
+ * -----------------------------------------------------------------------
+ *  <copyright file="AppClaimsPrincipalFactory.cs" company=""
+ *  Copyright 2018 julian
+ *  MIT Licence
+ *  For licence details visit https://github.com/jhueppauff/dotnetcorechat/blob/master/LICENSE
+ *  </copyright>
+ * -----------------------------------------------------------------------
+ */
+
 using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnetcorechat.Models;
@@ -21,16 +31,10 @@ namespace dotnetcorechat
 
             if (!string.IsNullOrWhiteSpace(user.DisplayName))
             {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-            new Claim(ClaimTypes.GivenName, user.DisplayName)
-        });
-            }
-
-            if (!string.IsNullOrWhiteSpace(user.DisplayName))
-            {
-                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
-            new Claim(ClaimTypes.Surname, user.DisplayName),
-        });
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] 
+                    {
+                    new Claim(ClaimTypes.GivenName, user.DisplayName)
+                    });
             }
 
             return principal;

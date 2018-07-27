@@ -1,7 +1,20 @@
+/*
+ * -----------------------------------------------------------------------
+ *  <copyright file="ChatHub.cs" company=""
+ *  Copyright 2018 julian
+ *  MIT Licence
+ *  For licence details visit https://github.com/jhueppauff/dotnetcorechat/blob/master/LICENSE
+ *  </copyright>
+ * -----------------------------------------------------------------------
+ */
+
+
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System.Security.Claims;
 
 namespace dotnetcorechat
 {
@@ -10,17 +23,23 @@ namespace dotnetcorechat
     {      
         public async Task Send(string message)
         {
-            await Clients.All.SendAsync("Send", Context.User.Identity.Name, message);
+            var claims = Context.User.Claims;
+            string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
+            await Clients.All.SendAsync("Send", displayName, message);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("Join", Context.User.Identity.Name, "joined");
+            var claims = Context.User.Claims;
+            string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
+            await Clients.All.SendAsync("Join", displayName, "joined");
         }
 
         public override async Task OnDisconnectedAsync(Exception execption)
         {
-            await Clients.All.SendAsync("Leave", Context.User.Identity.Name, "joined");
+            var claims = Context.User.Claims;
+            string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
+            await Clients.All.SendAsync("Leave", displayName, "joined");
         }
     }
 }
