@@ -94,13 +94,6 @@ namespace dotnetcorechat
             app.UseCookiePolicy();
 
             app.UseMvc();
-
-            app.UseCors(builder => {
-                builder.AllowAnyMethod()
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
-            });
+        }
     }
-}
 }
