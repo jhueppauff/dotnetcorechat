@@ -31,8 +31,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -44,7 +42,7 @@
     <div class="container body-content">
         @RenderBody()
         <footer>
-            <p>Copyright © @DateTime.Now.Year <a style="color:#0a93a6; text-decoration:none;" href="#">All rights reserved 2017- @DateTime.Now.Year</p>
+            <p>Copyright © @DateTime.Now.Year <a style="color:#0a93a6; text-decoration:none;" href="#">All rights reserved 2017 - @DateTime.Now.Year</p>
         </footer>
     </div>
 
