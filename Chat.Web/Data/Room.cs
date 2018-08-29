@@ -5,6 +5,7 @@ namespace dotnetcorechat.Data
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using dotnetcorechat.Models;
 
     [Table("Room")]
     public class Room
@@ -18,5 +19,7 @@ namespace dotnetcorechat.Data
 
         [Required, MaxLength(1024)]
         public string PasswordHash { get; set; }
+
+        public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }
