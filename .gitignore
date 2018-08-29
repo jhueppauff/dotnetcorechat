@@ -36,3 +36,6 @@ msbuild.wrn
 
 # dev config
 *.Development.json
+
+# timesheets
+*.dt
