@@ -8,7 +8,6 @@
  * -----------------------------------------------------------------------
  */
 
-
 using System.Threading.Tasks;
 using System;
 using Microsoft.AspNetCore.SignalR;
