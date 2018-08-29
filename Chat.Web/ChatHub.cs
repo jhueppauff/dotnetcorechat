@@ -20,13 +20,14 @@ namespace dotnetcorechat
     [Authorize]
     public class ChatHub : Hub
     {      
-        public async Task Send(string message)
+        public async Task Send(string message, Guid roomId)
         {
             var claims = Context.User.Claims;
             string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
-            await Clients.All.SendAsync("Send", displayName, message);
+            await Clients.Group(roomId.ToString()).SendAsync("Send", displayName, message);
         }
 
+        // deprecated replace with join room
         public override async Task OnConnectedAsync()
         {
             var claims = Context.User.Claims;
@@ -34,11 +35,32 @@ namespace dotnetcorechat
             await Clients.All.SendAsync("Join", displayName, "joined");
         }
 
+        public async Task JoinRoom(Guid roomId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId.ToString());
+            
+            var claims = Context.User.Claims;
+            string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
+
+            await Clients.Group(roomId.ToString()).SendAsync("Join", displayName, "joined");
+        }
+
+        public async Task LeaveRoom(Guid roomId)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId.ToString());
+
+            var claims = Context.User.Claims;
+            string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
+
+            await Clients.Group(roomId.ToString()).SendAsync("Leave", displayName, "left");
+        }
+
+        // deprecated replace with leave room
         public override async Task OnDisconnectedAsync(Exception execption)
         {
             var claims = Context.User.Claims;
             string displayName = claims.FirstOrDefault(v => v.Type == ClaimTypes.GivenName).Value;
-            await Clients.All.SendAsync("Leave", displayName, "joined");
+            await Clients.All.SendAsync("Leave", displayName, "left");
         }
     }
 }
