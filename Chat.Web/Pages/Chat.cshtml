@@ -5,7 +5,7 @@
 }
 <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 <br>
-
+<input id="roomId" value="" type="text" hidden="hidden" style="display: none" />
 <div class="container" id="chat-controler">
     <form id="frm-send-message" action="#">
                 <div class="send-wrap ">
@@ -72,7 +72,7 @@ connection.on('Join', (nick, message) => {
 });
 
 connection.on('Leave', (nick, message) => {
-    appendLine(nick, "has left.", "color: red");
+        (nick, "has left.", "color: red");
 });
  
 document.getElementById('frm-send-message').addEventListener('submit', event => {
