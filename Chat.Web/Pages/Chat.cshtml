@@ -78,10 +78,11 @@ connection.on('Leave', (nick, message) => {
 document.getElementById('frm-send-message').addEventListener('submit', event => {
     let message = $('#message').val();
     let nick = $('#spn-nick').text();
+    let roomId = $('#roomId').val();
  
     $('#message').val('');
  
-    connection.invoke('Send', message);
+    connection.invoke('Send', message, roomId);
     event.preventDefault();
 });
  
